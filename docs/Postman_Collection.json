@@ -1,0 +1,91 @@
+{
+  "info": {
+    "name": "Loan Eligibility & Lead Management API",
+    "description": "Production REST API Collection for Bank/NBFC Loan Applications, Dynamic BRE & Admin Dashboard",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login (JWT)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/auth/login/", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login", ""] }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh\": \"{{refreshToken}}\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/auth/refresh/", "host": ["{{baseUrl}}"], "path": ["api", "auth", "refresh", ""] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leads Management",
+      "item": [
+        {
+          "name": "Submit Customer Lead",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Rajesh Kumar\",\n  \"mobile_number\": \"9876543210\",\n  \"email\": \"rajesh@example.com\",\n  \"date_of_birth\": \"1992-05-15\",\n  \"city\": \"Mumbai\",\n  \"state\": \"Maharashtra\",\n  \"pincode\": \"400001\",\n  \"consent_accepted\": true,\n  \"loan_type\": \"Home Loan\",\n  \"employment_type\": \"Salaried\",\n  \"monthly_income\": 60000,\n  \"loan_amount\": 2500000,\n  \"property_value\": 4000000\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/leads/", "host": ["{{baseUrl}}"], "path": ["api", "leads", ""] }
+          }
+        },
+        {
+          "name": "Get All Leads",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/leads/", "host": ["{{baseUrl}}"], "path": ["api", "leads", ""] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "BRE Engine",
+      "item": [
+        {
+          "name": "Get All BRE Rules",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/bre-rules/", "host": ["{{baseUrl}}"], "path": ["api", "bre-rules", ""] }
+          }
+        },
+        {
+          "name": "Test BRE Engine Sandbox",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": 30,\n  \"monthly_income\": 50000,\n  \"credit_score\": 750,\n  \"loan_amount\": 2500000,\n  \"property_value\": 4000000,\n  \"employment_type\": \"Salaried\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/bre-rules/test/", "host": ["{{baseUrl}}"], "path": ["api", "bre-rules", "test", ""] }
+          }
+        }
+      ]
+    }
+  ]
+}
